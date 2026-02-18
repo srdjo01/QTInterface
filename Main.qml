@@ -57,13 +57,27 @@ ApplicationWindow {
 
     // -- Gather workspace state as JSON --
     function gatherProjectJson() {
+        var elements = []
+        for (var i = 0; i < centralWorkspace.placedItems.count; i++) {
+            var item = centralWorkspace.placedItems.get(i)
+            elements.push({
+                name: item.name,
+                label: item.label,
+                posX: item.posX,
+                posY: item.posY,
+                connectedTo: item.connectedTo,
+                vrednost: item.vrednost,
+                status: item.status
+            })
+        }
         var data = {
             projectPath: root.projectPath,
             grid: centralWorkspace.showGrid,
             zoom: centralWorkspace.zoomLevel,
             panX: centralWorkspace.panX,
             panY: centralWorkspace.panY,
-            selectedElement: rightPanel.selectedElement
+            selectedElement: rightPanel.selectedElement,
+            elements: elements
         }
         return JSON.stringify(data, null, 2)
     }
@@ -75,6 +89,20 @@ ApplicationWindow {
         centralWorkspace.zoomLevel = data.zoom || 1.0
         centralWorkspace.panX = data.panX || 0
         centralWorkspace.panY = data.panY || 0
+        if (data.elements) {
+            for (var i = 0; i < data.elements.length; i++) {
+                var el = data.elements[i]
+                centralWorkspace.placedItems.append({
+                    name: el.name,
+                    label: el.label,
+                    posX: el.posX,
+                    posY: el.posY,
+                    connectedTo: el.connectedTo || "",
+                    vrednost: el.vrednost || 0,
+                    status: el.status || "Aktivno"
+                })
+            }
+        }
         if (data.selectedElement)
             rightPanel.showElement(data.selectedElement)
         root.title = qsTr("Homework - Circuit Editor") + (root.projectPath !== "" ? (" — " + root.projectPath) : "")
