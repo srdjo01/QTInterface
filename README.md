@@ -3,22 +3,17 @@
 ## Pokretanje projekta
 
 ### Preduslovi
-- Qt 6.8+ sa Qt Quick i Qt Quick Dialogs2 modulima
+- Qt 6.10.2 (MinGW 64-bit) sa Qt Quick i Qt Quick Dialogs2 modulima
 - CMake 3.16+
-- C++ kompajler (MSVC, MinGW, GCC)
+- Qt Creator
 
-### Build i pokretanje
+### Pokretanje iz Qt Creator-a (preporučeno)
+1. Otvoriti `CMakeLists.txt` kao projekat u Qt Creator-u
+2. Konfigurisati kit (Desktop Qt 6.10.2 MinGW 64-bit)
+3. Kliknuti Run (zeleni play)
 
-```bash
-mkdir build
-cd build
-cmake ..
-cmake --build . --config Release
-```
-
-Izvršni fajl se nalazi u `build/Release/apphomework.exe` (ili `build/apphomework` na Linux-u).
-
-Za pokretanje iz Qt Creator-a: otvoriti `CMakeLists.txt` kao projekat i kliknuti Run.
+### Standalone pokretanje
+U folderu `exe_start/` se nalazi `apphomework.exe` sa svim potrebnim DLL fajlovima. Može se pokrenuti direktno duplo-klikom bez Qt Creator-a.
 
 ## Arhitektura
 
